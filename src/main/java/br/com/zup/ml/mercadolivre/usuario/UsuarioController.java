@@ -21,10 +21,6 @@ public class UsuarioController {
 	@PostMapping
 	public HttpStatus criaUsuario(@RequestBody @Valid CriaUsuarioRequest criaUsuarioRequest) {
 		Usuario usuario = criaUsuarioRequest.converterParaUsuario();
-
-		System.out.println("usuario: " + usuario.getUsuario());
-		System.out.println("senha: " + usuario.getSenha());
-
 		usuarioRepository.save(usuario);
 
 		return HttpStatus.OK;
