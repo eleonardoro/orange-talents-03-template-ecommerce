@@ -4,10 +4,13 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import br.com.zup.ml.mercadolivre.validacoes.ValorUnico;
+
 public class CriaUsuarioRequest {
 
 	@NotEmpty
 	@Email
+	@ValorUnico(domainClass = Usuario.class, fieldName = "usuario")
 	private String usuario;
 
 	@NotEmpty
