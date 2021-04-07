@@ -15,7 +15,7 @@ import javax.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValorUnico {
 
-	String message() default "{br.com.zupacademy.eleonardo.casadocodigo.beanvalidation.uniquevalue}";
+	String message() default "{br.com.zup.beanvalidation.uniquevalue}";
 
 	Class<?>[] groups() default {};
 

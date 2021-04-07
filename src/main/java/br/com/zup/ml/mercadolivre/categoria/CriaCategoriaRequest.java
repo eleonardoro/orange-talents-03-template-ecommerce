@@ -1,6 +1,7 @@
 package br.com.zup.ml.mercadolivre.categoria;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Positive;
 
 import br.com.zup.ml.mercadolivre.validacoes.ExistsId;
 import br.com.zup.ml.mercadolivre.validacoes.ValorUnico;
@@ -12,6 +13,7 @@ public class CriaCategoriaRequest {
 	private String nomeCategoria;
 
 	@ExistsId(domainClass = Categoria.class, fieldName = "id")
+	@Positive
 	private Long idCategoriaMae;
 
 	public Categoria converterParaCategoria(CategoriaRepository categoriaRepository) {

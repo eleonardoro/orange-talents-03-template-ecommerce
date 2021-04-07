@@ -10,20 +10,20 @@ public class CriaUsuarioRequest {
 
 	@NotEmpty
 	@Email
-	@ValorUnico(domainClass = Usuario.class, fieldName = "usuario")
-	private String usuario;
+	@ValorUnico(domainClass = Usuario.class, fieldName = "email")
+	private String email;
 
 	@NotEmpty
 	@Size(min = 6)
 	private String senha;
 
 	public Usuario converterParaUsuario() {
-		return new Usuario(usuario, senha);
+		return new Usuario(email, senha);
 	}
 
-	public CriaUsuarioRequest(@NotEmpty @Email String usuario, @NotEmpty @Size(min = 6) String senha) {
+	public CriaUsuarioRequest(@NotEmpty @Email String email, @NotEmpty @Size(min = 6) String senha) {
 		super();
-		this.usuario = usuario;
+		this.email = email;
 		this.senha = senha;
 	}
 
