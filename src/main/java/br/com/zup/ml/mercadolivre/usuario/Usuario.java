@@ -29,7 +29,7 @@ public class Usuario implements UserDetails {
 	private String senha;
 
 	@Column(nullable = false, updatable = false)
-	private LocalDateTime dataCriacao = LocalDateTime.now();
+	private final LocalDateTime dataCriacao = LocalDateTime.now();
 
 	@Deprecated
 	public Usuario() {

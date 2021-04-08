@@ -28,11 +28,12 @@ public class ValorUnicoValidator implements ConstraintValidator<ValorUnico, Obje
 	public boolean isValid(Object value, ConstraintValidatorContext context) {
 		Query query = manager
 				.createQuery("select 1 from " + klass.getName() + " where " + domainAttribute + " =:value");
+		
 		query.setParameter("value", value);
 
 		List<?> list = query.getResultList();
 		Assert.state(list.size() <= 1,
-				"Foi encontrado mais de um " + klass + " com o atributo " + domainAttribute + " = " + value);
+				"Foi encontrado mais de um " + klass.getName() + " com o atributo " + domainAttribute + " = " + value);
 
 		return list.isEmpty();
 	}

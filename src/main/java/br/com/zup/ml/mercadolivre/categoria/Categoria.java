@@ -17,7 +17,7 @@ public class Categoria {
 	@Column(nullable = false, unique = true)
 	private String nomeCategoria;
 
-	@ManyToOne
+	@ManyToOne(optional = true)
 	private Categoria categoriaMae;
 
 	@Deprecated
