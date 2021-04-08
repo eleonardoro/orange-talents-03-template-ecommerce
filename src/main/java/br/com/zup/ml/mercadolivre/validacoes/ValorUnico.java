@@ -15,13 +15,13 @@ import javax.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValorUnico {
 
-	String message() default "{br.com.zup.beanvalidation.uniquevalue}";
+	String message() default "{br.com.zup.beanvalidation.valorunico}";
 
 	Class<?>[] groups() default {};
 
 	Class<? extends Payload>[] payload() default {};
 
-	String fieldName();
+	String atributo();
 
-	Class<?> domainClass();
+	Class<?> classe();
 }

@@ -11,14 +11,18 @@ import org.hibernate.validator.constraints.Length;
 
 import br.com.zup.ml.mercadolivre.categoria.Categoria;
 import br.com.zup.ml.mercadolivre.categoria.CategoriaRepository;
-import br.com.zup.ml.mercadolivre.validacoes.ExistsId;
+import br.com.zup.ml.mercadolivre.validacoes.ExisteId;
 import br.com.zup.ml.mercadolivre.validacoes.ValorUnico;
 
 public class CriaProdutoRequest {
 
 	@NotEmpty
-	@ValorUnico(domainClass = Produto.class, fieldName = "nome")
+	@ValorUnico(classe = Produto.class, atributo = "nome")
 	private String nome;
+	
+	@NotEmpty
+	@Length(min = 1, max = 1000)
+	private String descricao;
 
 	@NotNull
 	@Positive
@@ -28,13 +32,9 @@ public class CriaProdutoRequest {
 	@PositiveOrZero
 	private Integer quantidade;
 
-	@NotEmpty
-	@Length(min = 1, max = 1000)
-	private String descricao;
-
 	@NotNull
 	@Positive
-	@ExistsId(domainClass = Categoria.class, fieldName = "id")
+	@ExisteId(classe = Categoria.class, atributo = "id")
 	private Long idCategoria;
 
 	public CriaProdutoRequest(@NotEmpty String nome, @NotNull @Positive BigDecimal valor,

@@ -11,14 +11,14 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 @Documented
-@Constraint(validatedBy = {ExistsIdValidator.class})
+@Constraint(validatedBy = {ExisteIdValidator.class})
 @Target({ FIELD})
 @Retention(RUNTIME)
-public @interface ExistsId {
+public @interface ExisteId {
 
-	String message() default "{br.com.zup.beanvalidation.existsid}";
+	String message() default "{br.com.zup.beanvalidation.existeid}";
 	Class<?>[] groups() default { };
 	Class<? extends Payload>[] payload() default { };
-	String fieldName();
-	Class<?> domainClass();
+	String atributo();
+	Class<?> classe();
 }

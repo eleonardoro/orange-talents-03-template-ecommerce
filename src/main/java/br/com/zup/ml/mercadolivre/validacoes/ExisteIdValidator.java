@@ -10,17 +10,17 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.util.Assert;
 
-public class ExistsIdValidator implements ConstraintValidator<ExistsId, Object>{
+public class ExisteIdValidator implements ConstraintValidator<ExisteId, Object>{
 
-	private String domainAttribute;
-	private Class<?> klass;
+	private String atributo;
+	private Class<?> classe;
 	@PersistenceContext
 	private EntityManager manager;
 
 	@Override
-	public void initialize(ExistsId params) {
-		domainAttribute = params.fieldName();
-		klass = params.domainClass();
+	public void initialize(ExisteId params) {
+		atributo = params.atributo();
+		classe = params.classe();
 	}
 
 	@Override
@@ -29,12 +29,12 @@ public class ExistsIdValidator implements ConstraintValidator<ExistsId, Object>{
 			return true;
 		}
 		
-		Query query = manager.createQuery("select 1 from " + klass.getName() + " where " + domainAttribute + " = :value");
+		Query query = manager.createQuery("select 1 from " + classe.getName() + " where " + atributo + " = :value");
 		query.setParameter("value", value);	
 	
 		
 		List<?> list = query.getResultList();
-		Assert.isTrue(list.size() <=1, "aconteceu algo bizarro e você tem mais de um " + klass + " com o atributo " + domainAttribute + " com o valor = " + value);
+		Assert.isTrue(list.size() <=1, "aconteceu algo bizarro e você tem mais de um " + classe + " com o atributo " + atributo + " com o valor = " + value);
 		
 		return !list.isEmpty();
 	}

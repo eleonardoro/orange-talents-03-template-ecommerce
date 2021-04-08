@@ -12,28 +12,28 @@ import org.springframework.util.Assert;
 
 public class ValorUnicoValidator implements ConstraintValidator<ValorUnico, Object> {
 
-	private String domainAttribute;
-	private Class<?> klass;
+	private String atributo;
+	private Class<?> classe;
 
 	@PersistenceContext
 	private EntityManager manager;
 
 	@Override
 	public void initialize(ValorUnico params) {
-		domainAttribute = params.fieldName();
-		klass = params.domainClass();
+		atributo = params.atributo();
+		classe = params.classe();
 	}
 
 	@Override
 	public boolean isValid(Object value, ConstraintValidatorContext context) {
 		Query query = manager
-				.createQuery("select 1 from " + klass.getName() + " where " + domainAttribute + " =:value");
+				.createQuery("select 1 from " + classe.getName() + " where " + atributo + " =:value");
 		
 		query.setParameter("value", value);
 
 		List<?> list = query.getResultList();
 		Assert.state(list.size() <= 1,
-				"Foi encontrado mais de um " + klass.getName() + " com o atributo " + domainAttribute + " = " + value);
+				"Foi encontrado mais de um " + classe.getName() + " com o atributo " + atributo + " = " + value);
 
 		return list.isEmpty();
 	}

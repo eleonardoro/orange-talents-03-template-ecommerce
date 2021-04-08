@@ -10,7 +10,7 @@ public class CriaUsuarioRequest {
 
 	@NotEmpty
 	@Email
-	@ValorUnico(domainClass = Usuario.class, fieldName = "email")
+	@ValorUnico(classe = Usuario.class, atributo = "email")
 	private String email;
 
 	@NotEmpty
