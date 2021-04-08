@@ -1,15 +1,11 @@
 package br.com.zup.ml.mercadolivre.produto;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
-import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -41,32 +37,19 @@ public class CriaProdutoRequest {
 	@ExistsId(domainClass = Categoria.class, fieldName = "id")
 	private Long idCategoria;
 
-	@Size(min = 3)
-	@Valid
-	private List<CaracteristicaDoProdutoRequest> caracteristicas = new ArrayList<>();
-
 	public CriaProdutoRequest(@NotEmpty String nome, @NotNull @Positive BigDecimal valor,
 			@NotNull @PositiveOrZero Integer quantidade, @NotEmpty @Length(min = 1, max = 1000) String descricao,
-			@NotNull @Positive Long idCategoria, List<CaracteristicaDoProdutoRequest> caracteristicas) {
+			@NotNull @Positive Long idCategoria) {
 		this.nome = nome;
 		this.valor = valor;
 		this.quantidade = quantidade;
 		this.descricao = descricao;
 		this.idCategoria = idCategoria;
-		this.caracteristicas = caracteristicas;
-	}
-
-	public List<CaracteristicaDoProdutoRequest> getCaracteristicas() {
-		return caracteristicas;
-	}
-
-	public void setCaracteristicas(List<CaracteristicaDoProdutoRequest> caracteristicas) {
-		this.caracteristicas = caracteristicas;
 	}
 
 	public Produto converterParaProduto(CategoriaRepository categoriaRepository) {
 		Categoria categoria = categoriaRepository.findById(idCategoria).get();
 
-		return new Produto(nome, valor, quantidade, descricao, categoria, caracteristicas);
+		return new Produto(nome, valor, quantidade, descricao, categoria);
 	}
 }
