@@ -13,7 +13,6 @@ public class NovaCaracteristicaDoProdutoRequest {
 	private String descricao;
 
 	public NovaCaracteristicaDoProdutoRequest(@NotEmpty String nome, @NotEmpty String descricao) {
-		super();
 		this.nome = nome;
 		this.descricao = descricao;
 	}
