@@ -19,8 +19,12 @@ import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.com.zup.ml.mercadolivre.categoria.Categoria;
+import br.com.zup.ml.mercadolivre.produto.caracteristica_do_produto.CaracteristicaDoProduto;
+import br.com.zup.ml.mercadolivre.produto.caracteristica_do_produto.NovaCaracteristicaDoProdutoRequest;
+import br.com.zup.ml.mercadolivre.produto.imagem.Imagem;
 import br.com.zup.ml.mercadolivre.usuario.Usuario;
 
 @Entity
@@ -55,6 +59,9 @@ public class Produto {
 	@OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
 	private Set<CaracteristicaDoProduto> caracteristicas = new HashSet<CaracteristicaDoProduto>();
 
+	@OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
+	private List<Imagem> imagens;
+
 	@Deprecated
 	public Produto() {
 	}
@@ -76,4 +83,11 @@ public class Produto {
 		return id;
 	}
 
+	public Usuario getUsuarioDono() {
+		return usuarioDono;
+	}
+
+	public void setImagens(List<MultipartFile> imagensParaSalvar) {
+		imagensParaSalvar.forEach(imagem -> imagens.add(new Imagem(imagem.getName(), "urlll", this)));
+	}
 }

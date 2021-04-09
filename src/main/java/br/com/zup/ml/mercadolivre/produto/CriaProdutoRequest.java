@@ -15,6 +15,7 @@ import org.hibernate.validator.constraints.Length;
 
 import br.com.zup.ml.mercadolivre.categoria.Categoria;
 import br.com.zup.ml.mercadolivre.categoria.CategoriaRepository;
+import br.com.zup.ml.mercadolivre.produto.caracteristica_do_produto.NovaCaracteristicaDoProdutoRequest;
 import br.com.zup.ml.mercadolivre.usuario.Usuario;
 import br.com.zup.ml.mercadolivre.validacoes.ExisteId;
 import br.com.zup.ml.mercadolivre.validacoes.ValorUnico;

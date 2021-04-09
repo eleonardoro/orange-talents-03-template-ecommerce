@@ -1,6 +1,8 @@
-package br.com.zup.ml.mercadolivre.produto;
+package br.com.zup.ml.mercadolivre.produto.caracteristica_do_produto;
 
 import javax.validation.constraints.NotEmpty;
+
+import br.com.zup.ml.mercadolivre.produto.Produto;
 
 public class NovaCaracteristicaDoProdutoRequest {
 
