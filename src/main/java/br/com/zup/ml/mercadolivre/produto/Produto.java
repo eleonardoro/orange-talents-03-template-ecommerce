@@ -19,12 +19,12 @@ import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
-import org.springframework.web.multipart.MultipartFile;
 
 import br.com.zup.ml.mercadolivre.categoria.Categoria;
 import br.com.zup.ml.mercadolivre.produto.caracteristica_do_produto.CaracteristicaDoProduto;
 import br.com.zup.ml.mercadolivre.produto.caracteristica_do_produto.NovaCaracteristicaDoProdutoRequest;
-import br.com.zup.ml.mercadolivre.produto.imagem.Imagem;
+import br.com.zup.ml.mercadolivre.produto.imagem.ImagemDoProduto;
+import br.com.zup.ml.mercadolivre.produto.imagem.NovaImagemDoProdutoRequest;
 import br.com.zup.ml.mercadolivre.usuario.Usuario;
 
 @Entity
@@ -57,10 +57,10 @@ public class Produto {
 	private Usuario usuarioDono;
 
 	@OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
-	private Set<CaracteristicaDoProduto> caracteristicas = new HashSet<CaracteristicaDoProduto>();
+	private Set<CaracteristicaDoProduto> caracteristicas = new HashSet<>();
 
 	@OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
-	private List<Imagem> imagens;
+	private Set<ImagemDoProduto> imagens = new HashSet<>();
 
 	@Deprecated
 	public Produto() {
@@ -87,7 +87,13 @@ public class Produto {
 		return usuarioDono;
 	}
 
-	public void setImagens(List<MultipartFile> imagensParaSalvar) {
-		imagensParaSalvar.forEach(imagem -> imagens.add(new Imagem(imagem.getName(), "urlll", this)));
+	public void setImagens(@Valid NovaImagemDoProdutoRequest imagensParaSalvar) {
+		imagensParaSalvar.getImagens().forEach(imagem -> {
+			this.imagens.add(new ImagemDoProduto(imagem.getOriginalFilename(), LocalDateTime.now().toString(), this));
+		});
+	}
+
+	public boolean isUsuarioDono(Usuario usuario) {
+		return usuario.equals(this.usuarioDono);
 	}
 }
