@@ -26,6 +26,7 @@ import br.com.zup.ml.mercadolivre.produto.caracteristica_do_produto.NovaCaracter
 import br.com.zup.ml.mercadolivre.produto.imagem.ImagemDoProduto;
 import br.com.zup.ml.mercadolivre.produto.imagem.NovaImagemDoProdutoRequest;
 import br.com.zup.ml.mercadolivre.produto.opiniao.OpiniaoDoProduto;
+import br.com.zup.ml.mercadolivre.produto.pergunta.PerguntaDoProduto;
 import br.com.zup.ml.mercadolivre.usuario.Usuario;
 
 @Entity
@@ -65,6 +66,9 @@ public class Produto {
 	
 	@OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
 	private Set<OpiniaoDoProduto> opinioes = new HashSet<>();
+	
+	@OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
+	private Set<PerguntaDoProduto> perguntas = new HashSet<>();
 
 	@Deprecated
 	public Produto() {
@@ -89,6 +93,10 @@ public class Produto {
 
 	public Usuario getUsuarioDono() {
 		return usuarioDono;
+	}
+	
+	public String getNome() {
+		return nome;
 	}
 
 	public void setImagens(@Valid NovaImagemDoProdutoRequest imagensParaSalvar) {
