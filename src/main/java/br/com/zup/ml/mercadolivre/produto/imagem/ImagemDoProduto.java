@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import br.com.zup.ml.mercadolivre.produto.Produto;
@@ -44,5 +45,25 @@ public class ImagemDoProduto {
 		this.nome = nome;
 		this.url = url;
 		this.produto = produto;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public LocalDateTime getDataUpload() {
+		return dataUpload;
+	}
+
+	public Produto getProduto() {
+		return produto;
 	}
 }

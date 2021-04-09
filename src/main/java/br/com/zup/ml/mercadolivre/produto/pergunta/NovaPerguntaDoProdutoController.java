@@ -17,26 +17,30 @@ import br.com.zup.ml.mercadolivre.usuario.Usuario;
 @RequestMapping("/perguntas")
 public class NovaPerguntaDoProdutoController {
 
-	
 	private ProdutoRepository produtoRepository;
 	private PerguntaRepository perguntaRepository;
-	
-	public NovaPerguntaDoProdutoController(ProdutoRepository produtoRepository, PerguntaRepository perguntaRepository) {
-		super();
+	private EmailService emailService;
+
+	public NovaPerguntaDoProdutoController(ProdutoRepository produtoRepository, PerguntaRepository perguntaRepository,
+			EmailService emailService) {
 		this.produtoRepository = produtoRepository;
 		this.perguntaRepository = perguntaRepository;
+		this.emailService = emailService;
 	}
 
 	@PostMapping
-	public HttpStatus criaPerguntaDoProduto(@RequestBody @Valid NovaPerguntaDoProdutoRequest novaPerguntaDoProdutoRequest,
+	public HttpStatus criaPerguntaDoProduto(
+			@RequestBody @Valid NovaPerguntaDoProdutoRequest novaPerguntaDoProdutoRequest,
 			@AuthenticationPrincipal Usuario usuario) {
-		
-		PerguntaDoProduto perguntaDoProduto = novaPerguntaDoProdutoRequest.converterParaPerguntaDoProduto(produtoRepository, usuario);
-		
-		PerguntaDoProduto perguntaSalva =  perguntaRepository.save(perguntaDoProduto);
-		
-		EmailService.enviaEmailParaDonoDoProdutoParaNovaPergunta(produtoRepository.findById(novaPerguntaDoProdutoRequest.getIdProduto()).get(), usuario, perguntaSalva);
-		
+
+		PerguntaDoProduto perguntaDoProduto = novaPerguntaDoProdutoRequest
+				.converterParaPerguntaDoProduto(produtoRepository, usuario);
+
+		PerguntaDoProduto perguntaSalva = perguntaRepository.save(perguntaDoProduto);
+
+		emailService.enviaEmailParaDonoDoProdutoParaNovaPergunta(
+				produtoRepository.findById(novaPerguntaDoProdutoRequest.getIdProduto()).get(), usuario, perguntaSalva);
+
 		return HttpStatus.OK;
 	}
 }

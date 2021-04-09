@@ -1,12 +1,15 @@
 package br.com.zup.ml.mercadolivre.services;
 
+import org.springframework.stereotype.Service;
+
 import br.com.zup.ml.mercadolivre.produto.Produto;
 import br.com.zup.ml.mercadolivre.produto.pergunta.PerguntaDoProduto;
 import br.com.zup.ml.mercadolivre.usuario.Usuario;
 
+@Service
 public class EmailService {
 
-	public static void enviaEmailParaDonoDoProdutoParaNovaPergunta(Produto produto, Usuario usuarioDaPergunta, PerguntaDoProduto pergunta) {
+	public void enviaEmailParaDonoDoProdutoParaNovaPergunta(Produto produto, Usuario usuarioDaPergunta, PerguntaDoProduto pergunta) {
 		System.out.println("Olá " + produto.getUsuarioDono().getEmail() + "!"
 				+ "\n"
 				+ "\n"
@@ -21,5 +24,4 @@ public class EmailService {
 				+ "Link rápido para a pergunta: www.www");
 		
 	}
-
 }

@@ -19,26 +19,47 @@ public class PerguntaDoProduto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(nullable = false)
 	private String titulo;
-	
+
 	@ManyToOne
 	private Produto produto;
-	
+
 	@ManyToOne
 	private Usuario usuario;
-	
+
 	@Column(nullable = false, updatable = false)
 	private final LocalDateTime dataCriacao = LocalDateTime.now();
+
+	@Deprecated
+	public PerguntaDoProduto() {
+	}
 
 	public PerguntaDoProduto(@NotEmpty String titulo, Produto produto, Usuario usuario) {
 		this.titulo = titulo;
 		this.produto = produto;
 		this.usuario = usuario;
 	}
-	
+
+	public Long getId() {
+		return id;
+	}
+
 	public String getTitulo() {
 		return titulo;
 	}
+
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public LocalDateTime getDataCriacao() {
+		return dataCriacao;
+	}
+
 }

@@ -16,7 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
-import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -63,10 +62,10 @@ public class Produto {
 
 	@OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
 	private Set<ImagemDoProduto> imagens = new HashSet<>();
-	
+
 	@OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
 	private Set<OpiniaoDoProduto> opinioes = new HashSet<>();
-	
+
 	@OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
 	private Set<PerguntaDoProduto> perguntas = new HashSet<>();
 
@@ -74,9 +73,8 @@ public class Produto {
 	public Produto() {
 	}
 
-	public Produto(String nome, BigDecimal valor, Integer quantidade, @Length(min = 1, max = 1000) String descricao,
-			Categoria categoria, Usuario usuarioDono,
-			@Size(min = 3) @Valid List<NovaCaracteristicaDoProdutoRequest> caracteristicas) {
+	public Produto(String nome, BigDecimal valor, Integer quantidade, String descricao, Categoria categoria,
+			Usuario usuarioDono, List<NovaCaracteristicaDoProdutoRequest> caracteristicas) {
 		this.nome = nome;
 		this.valor = valor;
 		this.quantidade = quantidade;
@@ -87,18 +85,6 @@ public class Produto {
 				.map(caracteristica -> caracteristica.converterParaCaracteristica(this)).collect(Collectors.toSet()));
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public Usuario getUsuarioDono() {
-		return usuarioDono;
-	}
-	
-	public String getNome() {
-		return nome;
-	}
-
 	public void setImagens(@Valid NovaImagemDoProdutoRequest imagensParaSalvar) {
 		imagensParaSalvar.getImagens().forEach(imagem -> {
 			this.imagens.add(new ImagemDoProduto(imagem.getOriginalFilename(), LocalDateTime.now().toString(), this));
@@ -107,5 +93,53 @@ public class Produto {
 
 	public boolean isUsuarioDono(Usuario usuario) {
 		return usuario.equals(this.usuarioDono);
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public BigDecimal getValor() {
+		return valor;
+	}
+
+	public Integer getQuantidade() {
+		return quantidade;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public LocalDateTime getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public Usuario getUsuarioDono() {
+		return usuarioDono;
+	}
+
+	public Set<CaracteristicaDoProduto> getCaracteristicas() {
+		return caracteristicas;
+	}
+
+	public Set<ImagemDoProduto> getImagens() {
+		return imagens;
+	}
+
+	public Set<OpiniaoDoProduto> getOpinioes() {
+		return opinioes;
+	}
+
+	public Set<PerguntaDoProduto> getPerguntas() {
+		return perguntas;
 	}
 }
