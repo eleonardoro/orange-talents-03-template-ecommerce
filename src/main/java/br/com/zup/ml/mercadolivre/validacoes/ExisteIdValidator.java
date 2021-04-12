@@ -10,7 +10,7 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.util.Assert;
 
-public class ExisteIdValidator implements ConstraintValidator<ExisteId, Object>{
+public class ExisteIdValidator implements ConstraintValidator<ExisteId, Object> {
 
 	private String atributo;
 	private Class<?> classe;
@@ -25,17 +25,17 @@ public class ExisteIdValidator implements ConstraintValidator<ExisteId, Object>{
 
 	@Override
 	public boolean isValid(Object value, ConstraintValidatorContext context) {
-		if(value == null) {
+		if (value == null) {
 			return true;
 		}
-		
+
 		Query query = manager.createQuery("select 1 from " + classe.getName() + " where " + atributo + " = :value");
-		query.setParameter("value", value);	
-	
-		
+		query.setParameter("value", value);
+
 		List<?> list = query.getResultList();
-		Assert.isTrue(list.size() <=1, "aconteceu algo bizarro e você tem mais de um " + classe + " com o atributo " + atributo + " com o valor = " + value);
-		
+		Assert.isTrue(list.size() <= 1, "aconteceu algo bizarro e você tem mais de um " + classe + " com o atributo "
+				+ atributo + " com o valor = " + value);
+
 		return !list.isEmpty();
 	}
 }

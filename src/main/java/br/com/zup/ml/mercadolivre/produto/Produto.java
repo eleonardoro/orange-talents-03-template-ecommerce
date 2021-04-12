@@ -20,6 +20,7 @@ import javax.validation.Valid;
 import org.hibernate.validator.constraints.Length;
 
 import br.com.zup.ml.mercadolivre.categoria.Categoria;
+import br.com.zup.ml.mercadolivre.compra.Compra;
 import br.com.zup.ml.mercadolivre.produto.caracteristica_do_produto.CaracteristicaDoProduto;
 import br.com.zup.ml.mercadolivre.produto.caracteristica_do_produto.NovaCaracteristicaDoProdutoRequest;
 import br.com.zup.ml.mercadolivre.produto.imagem.ImagemDoProduto;
@@ -68,6 +69,9 @@ public class Produto {
 
 	@OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
 	private Set<PerguntaDoProduto> perguntas = new HashSet<>();
+
+	@OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
+	Set<Compra> compras = new HashSet<>();
 
 	@Deprecated
 	public Produto() {
@@ -141,5 +145,41 @@ public class Produto {
 
 	public Set<PerguntaDoProduto> getPerguntas() {
 		return perguntas;
+	}
+
+	public boolean abateQuantidade(Integer quantidadeVenda) {
+		boolean retorno = false;
+
+		if (quantidade > 0 && quantidade >= quantidadeVenda) {
+			retorno = true;
+			this.quantidade -= quantidadeVenda;
+		}
+
+		return retorno;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Produto other = (Produto) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 }

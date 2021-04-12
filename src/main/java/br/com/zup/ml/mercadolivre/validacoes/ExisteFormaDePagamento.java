@@ -11,18 +11,14 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 @Documented
-@Constraint(validatedBy = { ExisteIdValidator.class })
+@Constraint(validatedBy = { ExisteFormaDePagamentoValidator.class })
 @Target({ FIELD })
 @Retention(RUNTIME)
-public @interface ExisteId {
+public @interface ExisteFormaDePagamento {
 
-	String message() default "{br.com.zup.beanvalidation.existeid}";
+	String message() default "{br.com.zup.beanvalidation.existeformadepagamento}";
 
 	Class<?>[] groups() default {};
 
 	Class<? extends Payload>[] payload() default {};
-
-	String atributo();
-
-	Class<?> classe();
 }
