@@ -32,8 +32,6 @@ public class UploadImagemController {
 	public HttpStatus handleFileUpload(@PathVariable("id") Long idProduto,
 			@Valid NovaImagemDoProdutoRequest novaImagemDoProdutoRequest, @AuthenticationPrincipal Usuario usuario) {
 		
-		System.out.println(idProduto);
-
 		Optional<Produto> produto = produtoRepository.findById(idProduto);
 
 		if (!produto.isPresent())

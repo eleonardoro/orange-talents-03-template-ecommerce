@@ -56,7 +56,7 @@ public class Produto {
 	private final LocalDateTime dataCriacao = LocalDateTime.now();
 
 	@ManyToOne(optional = false)
-	private Usuario usuarioDono;
+	private Usuario vendedor;
 
 	@OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
 	private Set<CaracteristicaDoProduto> caracteristicas = new HashSet<>();
@@ -84,7 +84,7 @@ public class Produto {
 		this.quantidade = quantidade;
 		this.descricao = descricao;
 		this.categoria = categoria;
-		this.usuarioDono = usuarioDono;
+		this.vendedor = usuarioDono;
 		this.caracteristicas.addAll(caracteristicas.stream()
 				.map(caracteristica -> caracteristica.converterParaCaracteristica(this)).collect(Collectors.toSet()));
 	}
@@ -96,7 +96,7 @@ public class Produto {
 	}
 
 	public boolean isUsuarioDono(Usuario usuario) {
-		return usuario.equals(this.usuarioDono);
+		return usuario.equals(this.vendedor);
 	}
 
 	public Long getId() {
@@ -105,6 +105,10 @@ public class Produto {
 
 	public String getNome() {
 		return nome;
+	}
+
+	public Usuario getVendedor() {
+		return vendedor;
 	}
 
 	public BigDecimal getValor() {
@@ -128,7 +132,7 @@ public class Produto {
 	}
 
 	public Usuario getUsuarioDono() {
-		return usuarioDono;
+		return vendedor;
 	}
 
 	public Set<CaracteristicaDoProduto> getCaracteristicas() {

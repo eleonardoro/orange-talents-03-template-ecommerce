@@ -3,12 +3,12 @@ package br.com.zup.ml.mercadolivre.validacoes;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import br.com.zup.ml.mercadolivre.compra.FormaDePagamento;
+import br.com.zup.ml.mercadolivre.pagamento.StatusDePagamento;
 
-public class ExisteFormaDePagamentoValidator implements ConstraintValidator<ExisteFormaDePagamento, String> {
+public class StatusPagseguroValidoValidator implements ConstraintValidator<StatusPagseguroValido, String> {
 
 	@Override
-	public void initialize(ExisteFormaDePagamento params) {
+	public void initialize(StatusPagseguroValido params) {
 	}
 
 	@Override
@@ -18,7 +18,7 @@ public class ExisteFormaDePagamentoValidator implements ConstraintValidator<Exis
 		}
 
 		boolean existe = false;
-		for (FormaDePagamento fp : FormaDePagamento.values()) {
+		for (StatusDePagamento fp : StatusDePagamento.values()) {
 			if (fp.name().equalsIgnoreCase(value))
 				existe = true;
 		}
